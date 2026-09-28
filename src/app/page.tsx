@@ -35,14 +35,15 @@ export default function Home() {
       return;
     }
     setStatus("submitting");
+    const eventId = crypto.randomUUID();
     try {
       const res = await fetch("/api/submit-lead", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ name, phone, duration, reason }),
+        body: JSON.stringify({ name, phone, duration, reason, eventId }),
       });
       if (!res.ok) throw new Error("submit failed");
-      trackLead();
+      trackLead(eventId);
       setStatus("success");
     } catch {
       setStatus("error");

@@ -1,4 +1,5 @@
 import { NextResponse } from "next/server";
+import { sendMetaLead } from "./meta-capi";
 
 export async function POST(request: Request) {
   const webhookUrl = process.env.GOOGLE_SHEETS_WEBHOOK_URL;
@@ -9,7 +10,7 @@ export async function POST(request: Request) {
     );
   }
 
-  const body = await request.json();
+  const { eventId, ...body } = await request.json();
   // Tag leads from this site; the Apps Script writes `reason` into the notes column.
   body.reason = [body.reason, "אתר בלי התחייבות"].filter(Boolean).join("\n");
 
@@ -22,6 +23,8 @@ export async function POST(request: Request) {
   if (!upstream.ok) {
     return NextResponse.json({ error: "Upstream error" }, { status: 502 });
   }
+
+  await sendMetaLead(request, { name: body.name, phone: body.phone, eventId });
 
   return NextResponse.json({ status: "ok" });
 }

@@ -30,8 +30,14 @@ fbq('track','PageView');`}
   );
 }
 
-type Fbq = (command: "track", event: string, params?: Record<string, unknown>) => void;
+type Fbq = (
+  command: "track",
+  event: string,
+  params?: Record<string, unknown>,
+  options?: { eventID?: string }
+) => void;
 
-export function trackLead() {
-  (window as unknown as { fbq?: Fbq }).fbq?.("track", "Lead");
+// eventId must match the one sent to the server (Conversions API) for dedup.
+export function trackLead(eventId: string) {
+  (window as unknown as { fbq?: Fbq }).fbq?.("track", "Lead", {}, { eventID: eventId });
 }
