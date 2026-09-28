@@ -1,6 +1,7 @@
 "use client";
 
 import { useState, type FormEvent } from "react";
+import { trackLead } from "./meta-pixel";
 import styles from "./page.module.css";
 
 const DURATION_OPTIONS = [
@@ -41,6 +42,7 @@ export default function Home() {
         body: JSON.stringify({ name, phone, duration, reason }),
       });
       if (!res.ok) throw new Error("submit failed");
+      trackLead();
       setStatus("success");
     } catch {
       setStatus("error");

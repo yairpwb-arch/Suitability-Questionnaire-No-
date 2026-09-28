@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { Heebo } from "next/font/google";
 import { Analytics } from "@vercel/analytics/next";
+import { MetaPixel } from "./meta-pixel";
 import "./globals.css";
 
 const heebo = Heebo({
@@ -24,6 +25,7 @@ export default function RootLayout({
       <body className="min-h-full flex flex-col">
         {children}
         <Analytics />
+        <MetaPixel />
       </body>
     </html>
   );
