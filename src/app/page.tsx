@@ -22,7 +22,6 @@ export default function Home() {
   const [phone, setPhone] = useState("");
   const [duration, setDuration] = useState<string | null>(null);
   const [reason, setReason] = useState<string | null>(null);
-  const [agreed, setAgreed] = useState(false);
   const [status, setStatus] = useState<"idle" | "submitting" | "success" | "error">(
     "idle"
   );
@@ -161,20 +160,6 @@ export default function Home() {
                 ))}
               </div>
             </div>
-
-            <label className={styles.checkboxRow}>
-              <input
-                className={styles.checkboxInput}
-                type="checkbox"
-                checked={agreed}
-                onChange={(e) => setAgreed(e.target.checked)}
-                required
-              />
-              <span className={styles.checkboxText}>
-                אני מבין/ה שהתוכנית בתשלום וההטבה היא התחייבות לתוצאות או
-                החזר כספי מלא
-              </span>
-            </label>
 
             <button
               type="submit"
