@@ -65,7 +65,7 @@
   width: 100%;
   display: flex;
   flex-direction: column;
-  padding: clamp(8px, 1.2vh, 14px) 20px clamp(14px, 2vh, 20px);
+  padding: clamp(8px, 1.2vh, 14px) 20px calc(clamp(24px, 4vh, 36px) + env(safe-area-inset-bottom, 0px));
   box-sizing: border-box;
   overflow-y: auto;
 }
