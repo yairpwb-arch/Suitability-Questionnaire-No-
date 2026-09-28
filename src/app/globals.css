@@ -1,0 +1,29 @@
+@import "tailwindcss";
+
+:root {
+  --bg-page: #0d0d0d;
+  --bg-card: #1c1c1c;
+  --bg-header: #111111;
+
+  --gold: #c9a227;
+  --gold-bright: #f0c040;
+
+  --text-primary: #f0f0f0;
+  --text-secondary: rgba(240, 240, 240, 0.58);
+  --text-weak: rgba(240, 240, 240, 0.32);
+
+  --red: #dc2626;
+  --red-hover: #b91c1c;
+
+  --orange: #d97706;
+}
+
+@theme inline {
+  --font-sans: var(--font-heebo);
+}
+
+body {
+  background: var(--bg-page);
+  color: var(--text-primary);
+  font-family: var(--font-heebo), "Heebo", sans-serif;
+}

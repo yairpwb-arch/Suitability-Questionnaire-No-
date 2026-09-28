@@ -1,0 +1,296 @@
+.backdrop {
+  height: 100vh;
+  height: 100dvh;
+  background: var(--bg-page);
+  display: flex;
+  justify-content: center;
+  align-items: stretch;
+  padding: 14px;
+  box-sizing: border-box;
+}
+
+.frame {
+  position: relative;
+  width: 100%;
+  max-width: 600px;
+}
+
+.orangePoster {
+  position: absolute;
+  inset: -14px;
+  z-index: 0;
+  border-radius: 38px;
+  background: var(--orange);
+  box-shadow: 0 16px 40px rgba(217, 119, 6, 0.25);
+}
+
+.card {
+  position: relative;
+  z-index: 1;
+  height: 100%;
+  background: var(--bg-page);
+  border-radius: 24px;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+}
+
+.header {
+  flex-shrink: 0;
+  height: 34px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0 20px;
+  background: var(--bg-header);
+  border-bottom: 1px solid rgba(201, 162, 39, 0.2);
+}
+
+.logo {
+  font-size: clamp(15px, 4vw, 17px);
+  font-weight: 800;
+  letter-spacing: -0.2px;
+  color: var(--text-primary);
+}
+
+.logoDivider {
+  color: var(--gold-bright);
+  font-weight: 400;
+  margin: 0 2px;
+}
+
+.page {
+  flex: 1;
+  min-height: 0;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  padding: clamp(8px, 1.2vh, 14px) 20px clamp(14px, 2vh, 20px);
+  box-sizing: border-box;
+  overflow-y: auto;
+}
+
+.form {
+  flex: 1;
+  min-height: 0;
+  display: flex;
+  flex-direction: column;
+  gap: clamp(9px, 1.2vh, 14px);
+  min-width: 0;
+}
+
+.hero {
+  display: flex;
+  flex-direction: column;
+  gap: clamp(4px, 0.6vh, 6px);
+  text-align: center;
+  margin-bottom: clamp(16px, 3vh, 28px);
+}
+
+.title {
+  margin: 0;
+  font-size: clamp(20px, 6vw, 24px);
+  font-weight: 800;
+  color: var(--text-primary);
+  letter-spacing: -0.3px;
+  line-height: 1.25;
+}
+
+.subtitle {
+  margin: 0;
+  font-size: clamp(13px, 3.4vw, 14px);
+  font-weight: 500;
+  color: var(--text-secondary);
+  line-height: 1.4;
+}
+
+.fieldGroup {
+  display: flex;
+  flex-direction: column;
+  gap: clamp(6px, 1vh, 9px);
+}
+
+.input {
+  width: 100%;
+  background: var(--bg-card);
+  border: 1px solid rgba(201, 162, 39, 0.14);
+  border-radius: 18px;
+  padding: clamp(8px, 1.1vh, 11px) 18px;
+  font-size: clamp(13px, 3.6vw, 14px);
+  font-family: inherit;
+  color: var(--text-primary);
+  text-align: center;
+  transition: border-color 0.18s ease;
+}
+
+.input::placeholder {
+  color: var(--text-weak);
+}
+
+.input:focus {
+  outline: none;
+  border-color: var(--gold-bright);
+}
+
+.question {
+  display: flex;
+  flex-direction: column;
+  gap: clamp(6px, 1vh, 10px);
+}
+
+.questionTitle {
+  display: block;
+  margin: 0;
+  text-align: center;
+  font-size: clamp(15px, 4.2vw, 16px);
+  font-weight: 800;
+  color: var(--text-primary);
+  letter-spacing: -0.3px;
+  line-height: 1.3;
+}
+
+.options {
+  display: flex;
+  flex-direction: column;
+  gap: clamp(5px, 0.8vh, 7px);
+}
+
+.optionBox {
+  position: relative;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: clamp(6px, 1vh, 9px) 16px;
+  border: 1.5px solid rgba(201, 162, 39, 0.3);
+  border-radius: 12px;
+  cursor: pointer;
+  transition: all 0.18s ease;
+}
+
+.optionBox:hover {
+  border-color: var(--gold);
+}
+
+.optionBox:hover .optionText {
+  color: var(--text-primary);
+}
+
+.optionBox:hover .radioVisual {
+  border-color: var(--gold);
+}
+
+.optionBoxSelected {
+  border-color: var(--gold-bright);
+  background: rgba(201, 162, 39, 0.08);
+}
+
+.optionBoxSelected .optionText {
+  color: var(--text-primary);
+  font-weight: 700;
+}
+
+.radioInput {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
+}
+
+.radioVisual {
+  flex-shrink: 0;
+  width: 19px;
+  height: 19px;
+  border-radius: 50%;
+  border: 2px solid rgba(201, 162, 39, 0.35);
+  background: transparent;
+  transition: all 0.18s ease;
+}
+
+.radioInput:checked ~ .radioVisual {
+  border-color: var(--gold-bright);
+  background: var(--gold-bright);
+  box-shadow: inset 0 0 0 4px var(--bg-card);
+}
+
+.optionText {
+  font-size: clamp(14px, 3.8vw, 15px);
+  font-weight: 500;
+  color: var(--text-secondary);
+  transition: color 0.18s ease;
+}
+
+.checkboxRow {
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+  cursor: pointer;
+}
+
+.checkboxInput {
+  flex-shrink: 0;
+  width: 18px;
+  height: 18px;
+  margin-top: 2px;
+  accent-color: var(--gold-bright);
+}
+
+.checkboxText {
+  font-size: clamp(13px, 3.4vw, 14px);
+  font-weight: 500;
+  color: var(--text-secondary);
+  line-height: 1.4;
+}
+
+.submitButton {
+  width: 100%;
+  margin-top: auto;
+  padding: clamp(12px, 1.4vh, 15px);
+  border: none;
+  border-radius: 100px;
+  background: var(--red);
+  color: #fff;
+  font-size: clamp(16px, 4.4vw, 17px);
+  font-weight: 800;
+  font-family: inherit;
+  cursor: pointer;
+  box-shadow: 0 4px 24px rgba(220, 38, 38, 0.35);
+  transition: all 0.18s ease;
+}
+
+.submitButton:hover {
+  background: var(--red-hover);
+  transform: translateY(-2px);
+  box-shadow: 0 8px 32px rgba(220, 38, 38, 0.45);
+}
+
+.submitButton:active {
+  transform: translateY(0);
+}
+
+.submitButton:disabled {
+  opacity: 0.7;
+  cursor: not-allowed;
+  transform: none;
+}
+
+.formStatusSuccess,
+.formStatusError {
+  margin: -8px 0 0;
+  text-align: center;
+  font-size: clamp(15px, 3.8vw, 17px);
+  font-weight: 600;
+  line-height: 1.5;
+}
+
+.formStatusSuccess {
+  color: var(--gold-bright);
+}
+
+.formStatusError {
+  color: var(--red);
+}
