@@ -64,9 +64,7 @@ export default function Home() {
           <form className={styles.form} onSubmit={handleSubmit}>
             <div className={styles.hero}>
               <h1 className={styles.title}>
-                לקביעת שיחת התאמה לתוכנית
-                <br />
-                וקבלת ההתחייבות! <span aria-hidden>👇</span>
+                לקביעת שיחת התאמה לתוכנית הליווי שלנו <span aria-hidden>👇</span>
               </h1>
               <p className={styles.subtitle}>
                 הטופס מיועד לגברים ונשים ששנמאס להם מתפריטים ורוצים לשמוע על
