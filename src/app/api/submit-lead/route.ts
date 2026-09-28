@@ -10,6 +10,8 @@ export async function POST(request: Request) {
   }
 
   const body = await request.json();
+  // Tag leads from this site; the Apps Script writes `reason` into the notes column.
+  body.reason = [body.reason, "אתר בלי התחייבות"].filter(Boolean).join("\n");
 
   const upstream = await fetch(webhookUrl, {
     method: "POST",
