@@ -23,7 +23,7 @@ export default function Home() {
   const [phone, setPhone] = useState("");
   const [duration, setDuration] = useState<string | null>(null);
   const [reason, setReason] = useState<string | null>(null);
-  const [status, setStatus] = useState<"idle" | "submitting" | "success" | "error">(
+  const [status, setStatus] = useState<"idle" | "success" | "error">(
     "idle"
   );
 
@@ -34,20 +34,26 @@ export default function Home() {
       form.reportValidity();
       return;
     }
-    setStatus("submitting");
+    // Show the confirmation right away; the lead is sent in the background.
+    setStatus("success");
     const eventId = crypto.randomUUID();
-    try {
-      const res = await fetch("/api/submit-lead", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ name, phone, duration, reason, eventId }),
-      });
-      if (!res.ok) throw new Error("submit failed");
-      trackLead(eventId);
-      setStatus("success");
-    } catch {
-      setStatus("error");
+    const payload = JSON.stringify({ name, phone, duration, reason, eventId });
+    for (let attempt = 1; attempt <= 2; attempt++) {
+      try {
+        const res = await fetch("/api/submit-lead", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: payload,
+          keepalive: true,
+        });
+        if (!res.ok) throw new Error("submit failed");
+        trackLead(eventId);
+        return;
+      } catch {
+        // retry once, then surface the error
+      }
     }
+    setStatus("error");
   }
 
   return (
@@ -167,9 +173,9 @@ export default function Home() {
             <button
               type="submit"
               className={styles.submitButton}
-              disabled={status === "submitting"}
+              disabled={status === "success"}
             >
-              {status === "submitting" ? "שולח..." : "אני רוצה שיחזרו אלי!"}
+              אני רוצה שיחזרו אלי!
             </button>
 
             {status === "success" && (
