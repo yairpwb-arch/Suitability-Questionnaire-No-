@@ -16,21 +16,36 @@
 // manual edits — this function sets them directly instead.
 
 function doPost(e) {
+  // Two leads arriving at the same moment can make appendRow() overwrite
+  // each other's row; the lock makes them write one after the other.
+  var lock = LockService.getScriptLock();
+  lock.waitLock(30000);
+  try {
+    return writeLead_(e);
+  } finally {
+    SpreadsheetApp.flush();
+    lock.releaseLock();
+  }
+}
+
+function writeLead_(e) {
   var sheet = SpreadsheetApp.getActiveSpreadsheet().getSheetByName(
     "לידים חטוב בלי תפריט"
   );
   var data = JSON.parse(e.postData.contents);
 
-  var notes =
-    "כמה זמן מנסה להתחיל תהליך: " + (data.duration || "-") +
-    "\n" +
-    "הערה: " + (data.reason || "-");
+  // השאלון החדש שולח source + notes משלו. שאלון ההתאמה הקודם ממשיך לעבוד כמו קודם.
+  var source = data.source || "מודעה ישירה";
+  var notes = data.notes ||
+    ("כמה זמן מנסה להתחיל תהליך: " + (data.duration || "-") +
+     "\n" +
+     "הערה: " + (data.reason || "-"));
 
   sheet.appendRow([
     data.name || "",           // שם ליד
     data.phone || "",          // מספר טלפון
     new Date(),                // תאריך יצירה
-    "מודעה ישירה",             // מקור הגעה
+    source,                    // מקור הגעה
     "חדש",                     // סטטוס
     "",                        // תאריך פולואו/חזרה הבאה
     "",                        // סכום סגירה

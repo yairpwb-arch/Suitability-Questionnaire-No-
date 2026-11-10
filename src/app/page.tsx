@@ -37,7 +37,17 @@ export default function Home() {
     // Show the confirmation right away; the lead is sent in the background.
     setStatus("success");
     const eventId = crypto.randomUUID();
-    const payload = JSON.stringify({ name, phone, duration, reason, eventId });
+    // Fire the pixel immediately: users often close the tab as soon as they
+    // see the confirmation, before the server request returns.
+    trackLead(eventId);
+    const payload = JSON.stringify({
+      name,
+      phone,
+      duration,
+      reason,
+      eventId,
+      pageUrl: window.location.href,
+    });
     for (let attempt = 1; attempt <= 2; attempt++) {
       try {
         const res = await fetch("/api/submit-lead", {
@@ -47,7 +57,6 @@ export default function Home() {
           keepalive: true,
         });
         if (!res.ok) throw new Error("submit failed");
-        trackLead(eventId);
         return;
       } catch {
         // retry once, then surface the error
